@@ -1,6 +1,8 @@
 from allauth.account.forms import SignupForm
 from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from django.contrib.auth import forms as admin_forms
+from django.forms import Form
+from django.forms import IntegerField
 from django.utils.translation import gettext_lazy as _
 
 from .models import User
@@ -38,3 +40,13 @@ class UserSocialSignupForm(SocialSignupForm):
     Default fields will be added automatically.
     See UserSignupForm otherwise.
     """
+
+
+class DalleParam(Form):
+    trees_amount = IntegerField(label="Tree amount", min_value=1, max_value=10)
+    hangar_size = IntegerField(label="Hangar size", min_value=1, max_value=10)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Always return the full collection of cleaned data.
+        return cleaned_data

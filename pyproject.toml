@@ -41,7 +41,7 @@ close_void_tags = true
 format_css = true
 format_js = true
 # TODO: remove T002 when fixed https://github.com/Riverside-Healthcare/djLint/issues/687
-ignore = "H006,H030,H031,T002"
+ignore = "H006,H030,H031,T002,H029,D018"
 include = "H017,H035"
 indent = 2
 max_line_length = 119
@@ -143,9 +143,29 @@ select = [
   "RUF"
 ]
 ignore = [
+  "ISC001",
+  "COM812", # flake8-commas "Trailing comma missing"
+  "D10",  # pydocstyle "Missing docstring in ..."
+  "D203", # pydocstyle "one-blank-line-before-class" conflicting with D211
+  "D205", # pydocstyle "1 blank line required between summary line and description"
+  "D208", # pydocstyle "Docstring is over-indented"
+  "D209", # pydocstyle "Multi-line docstring closing quotes should be on a separate line"
+  "D211", # pydocstyle "no-blank-line-before-class" conflicting with D203
+  "D212", # pydocstyle "multi-line-summary-second-line" conflicting with D213
+  "D213", # pydocstyle "no-blank-line-before-class" conflicting with D212
+  "D400", # pydocstyle "First line should end with a period"
+  "D401", # pydocstyle "First line of docstring should be in imperative mood"
+  "D404", # pydocstyle "First word of the docstring should not be "This""
+  "D403", # pydocstyle "First word of the first line should be capitalized"
+  "D407", # pydocstyle "Missing dashed underline after section ("Return")"
+  "D415", # pydocstyle "First line should end with a period, question mark, or exclamation point"
+  "D419", # pydocstyle "Docstring is empty"
+  "E713", # pycodestyle "Test for membership should be `not in`"
+  "Q000", # flake8-quotes "Single quotes found but double quotes preferred"
   "S101", # Use of assert detected https://docs.astral.sh/ruff/rules/assert/
   "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
-  "SIM102" # sometimes it's better to nest
+  "SIM102", # sometimes it's better to nest
+  "RET504",
 ]
 # Allow fix for all enabled rules (when `--fix`) is provided.
 fixable = ["ALL"]

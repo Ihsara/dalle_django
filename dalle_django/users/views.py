@@ -1,12 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import HttpResponse
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
 
+from dalle_django.users.models import DalleParams
 from dalle_django.users.models import User
+
+from .forms import DalleParam
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):
@@ -43,3 +49,33 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 user_redirect_view = UserRedirectView.as_view()
+
+
+class DalleParamsCreateView(CreateView):
+    model = DalleParams
+    fields = ["test", "one", "two"]
+
+
+dalle_param_create_view = DalleParamsCreateView.as_view()
+
+
+class DalleParamsUpdateView(UpdateView):
+    model = DalleParams
+    fields = ["test", "one", "two"]
+
+    def post(self, request, *args, **kwargs):
+        # if this is a POST request we need to process the form data
+        if request.method == "POST":
+            form = DalleParam(request.POST)
+            if form.is_valid():
+                trees_amount = form.cleaned_data["trees_amount"]
+                hangar_size = form.cleaned_data["hangar_size"]
+                return HttpResponse(
+                    f"trees_amount: {trees_amount}\n\nhangar_size: {hangar_size}"
+                )
+        else:
+            form = DalleParam()
+        return render(request, "home.html", {"form": form})
+
+
+dalle_param_update_view = DalleParamsUpdateView.as_view()

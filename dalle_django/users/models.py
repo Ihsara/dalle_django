@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CharField
+from django.db.models import IntegerField
+from django.db.models import Model
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -24,3 +26,19 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"username": self.username})
+
+
+class DalleParams(Model):
+    name = None
+    trees_amount = IntegerField(_("Tree amount"), blank=True, default=1)
+    hangar_size = IntegerField(_("Hangar size"), blank=True, default=1)
+
+    class Meta:
+        verbose_name = _("DalleParams")
+        verbose_name_plural = _("DalleParamss")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("DalleParams_detail", kwargs={"pk": self.pk})

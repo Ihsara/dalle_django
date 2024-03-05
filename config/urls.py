@@ -11,6 +11,8 @@ from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 
+from dalle_django.users.views import DalleParamsUpdateView
+
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
@@ -43,6 +45,11 @@ urlpatterns += [
         "api/docs/",
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
+    ),
+    path(
+        "api/test/",
+        DalleParamsUpdateView.as_view(),
+        name="api-dalle",
     ),
 ]
 

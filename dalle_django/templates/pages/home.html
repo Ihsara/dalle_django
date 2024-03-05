@@ -1,3 +1,27 @@
 {% extends "base.html" %}
 
-
+{% block extrahead %}
+  <style>
+    < !-- your css codes -->
+  </style>
+{% endblock extrahead %}
+{% block main %}
+  {% block content %}
+    <p>Use this document as a way to quick start any new project.</p>
+    {% block form %}
+      <form method="POST" action="api/test/">
+        {% csrf_token %}
+        <label for="trees_amount">Tress amount:</label>
+        <input type="range" min="0" max="10" name="trees_amount" />
+        <label for="hangar_size">Hangar size:</label>
+        <input type="range" min="0" max="10" name="hangar_size" />
+        <input type="submit" value="Submit" />
+      </form>
+    {% endblock form %}
+  {% endblock content %}
+{% endblock main %}
+{% block extrajs %}
+  <script>
+    <!-- your js codes -->
+  </script>
+{% endblock extrajs %}
