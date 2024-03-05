@@ -7,6 +7,19 @@ Gen some pics for hangar through dalle
 
 License: MIT
 
+## TLDR:
+
+### Settings:
+
+- Make sure you have PostgreSQL installed (we might or might not need it later)
+- Follow this link https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html
+- If some variabel is not SET/EXPORT, please set the variable in the env
+- Profit
+
+### TO Dev it further:
+
+- You can find the views from dalle_django.users.views.DalleParams. Those are the landing place for variables you see on the webpage
+
 ## Settings
 
 Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
