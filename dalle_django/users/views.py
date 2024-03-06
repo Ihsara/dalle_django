@@ -1,3 +1,6 @@
+from os import environ
+
+import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import HttpResponse
@@ -70,8 +73,27 @@ class DalleParamsUpdateView(UpdateView):
             if form.is_valid():
                 trees_amount = form.cleaned_data["trees_amount"]
                 hangar_size = form.cleaned_data["hangar_size"]
+
+                auth_token = environ.get("OPENAITOKEN")
+                headers = {
+                    "Authorization": f"Bearer {auth_token}",
+                    "Content-Type": "application/json",
+                }
+
+                data = {
+                    "model": "dall-e-3",
+                    "prompt": f"{hangar_size} cute baby sea otter in around {trees_amount} trees",
+                    "n": 1,
+                    "size": "1024x1024",
+                }
+
+                url = "https://api.openai.com/v1/images/generations"
+
+                response = requests.post(url, json=data, headers=headers)
+                pic_url = response.json()["data"][0]["url"]
+
                 return HttpResponse(
-                    f"trees_amount: {trees_amount}\n\nhangar_size: {hangar_size}"
+                    f"trees_amount: {trees_amount}\n\nhangar_size: {hangar_size} response: {pic_url}"
                 )
         else:
             form = DalleParam()

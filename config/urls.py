@@ -26,7 +26,7 @@ urlpatterns = [
     path("users/", include("dalle_django.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    # ...
+    path("dalle/", include("dalle_django.dalle.urls", namespace="dalle")),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
